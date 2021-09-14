@@ -1,0 +1,654 @@
+{
+	"info": {
+		"_postman_id": "f8d234c0-f39d-4ff3-8bf4-7f4d853c3580",
+		"name": "Loja Integrada - Cart Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "/v1/cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_uuid\": \"c0b3fe2c-9cc9-475a-9c11-4cfaec941909\",\r\n    \"price\": 25,\r\n    \"amount\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-api}}/v1/cart",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_uuid\": \"c0b3fe2c-9cc9-475a-9c11-4cfaec941909\",\r\n    \"price\": 25,\r\n    \"amount\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cart-api}}/v1/cart",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart"
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "183"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:25:29 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6140a2c903aa83b659665f8d\",\n    \"products\": [\n        {\n            \"id\": \"6140a2c903aa83b659665f8e\",\n            \"price\": 25,\n            \"amount\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id/products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_uuid\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\r\n    \"price\": 155.99,\r\n    \"amount\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id/products",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id",
+								"products"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id/products",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"product_uuid\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\r\n    \"price\": 155.99,\r\n    \"amount\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id/products",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id",
+										"products"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										}
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "303"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:25:53 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6140a2c903aa83b659665f8d\",\n    \"products\": [\n        {\n            \"id\": \"6140a2c903aa83b659665f8e\",\n            \"price\": 25,\n            \"amount\": 2\n        },\n        {\n            \"id\": \"6140a2e103aa83b659665f8f\",\n            \"price\": 155.99,\n            \"amount\": 1\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id/products/:product_id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\": 140.42,\r\n    \"amount\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id/products/:product_id",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id",
+								"products",
+								":product_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								},
+								{
+									"key": "product_id",
+									"value": "6140a2c903aa83b659665f8e"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id/products/:product_id",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"price\": 140.42,\r\n    \"amount\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id/products/:product_id",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										},
+										{
+											"key": "product_id",
+											"value": "6140a2c903aa83b659665f8e"
+										}
+									]
+								}
+							},
+							"status": "NO CONTENT",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:26:35 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id/products/:product_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id/products/:product_id",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id",
+								"products",
+								":product_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								},
+								{
+									"key": "product_id",
+									"value": "6140a2c903aa83b659665f8e"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id/products/:product_id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id/products/:product_id",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										},
+										{
+											"key": "product_id",
+											"value": "6140a2c903aa83b659665f8e"
+										}
+									]
+								}
+							},
+							"status": "NO CONTENT",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:27:00 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id/coupon",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"AiJK9Y6F\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id/coupon",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id",
+								"coupon"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id/coupon",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"AiJK9Y6F\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id/coupon",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id",
+										"coupon"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										}
+									]
+								}
+							},
+							"status": "CREATED",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:27:50 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"percentage\",\n    \"value\": 20,\n    \"expires_at\": \"Thu, 16 Sep 2021 13:27:42 -0000\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id/coupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id/coupon",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id",
+								"coupon"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id/coupon",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id/coupon",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id",
+										"coupon"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										}
+									]
+								}
+							},
+							"status": "NO CONTENT",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:28:03 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/cart/:cart_id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cart-api}}/v1/cart/:cart_id",
+									"host": [
+										"{{cart-api}}"
+									],
+									"path": [
+										"v1",
+										"cart",
+										":cart_id"
+									],
+									"variable": [
+										{
+											"key": "cart_id",
+											"value": "6140a2c903aa83b659665f8d"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "547"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 Sep 2021 13:28:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6140a2c903aa83b659665f8d\",\n    \"discount\": {\n        \"type\": \"percentage\",\n        \"value\": 20\n    },\n    \"products\": [\n        {\n            \"id\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\n            \"title\": \"Product 2\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n            \"price\": 155.99,\n            \"amount\": 1,\n            \"image\": \"1631051095.png\"\n        }\n    ],\n    \"total\": 155.99,\n    \"subtotal\": 124.792\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/cart/:cart_id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{cart-api}}/v1/cart/:cart_id",
+							"host": [
+								"{{cart-api}}"
+							],
+							"path": [
+								"v1",
+								"cart",
+								":cart_id"
+							],
+							"variable": [
+								{
+									"key": "cart_id",
+									"value": "6140a2c903aa83b659665f8d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

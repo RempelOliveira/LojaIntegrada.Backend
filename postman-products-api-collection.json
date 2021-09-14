@@ -1,0 +1,569 @@
+{
+	"info": {
+		"_postman_id": "0096285d-7727-459c-a05b-41d3241cb3c4",
+		"name": "Loja Integrada - Products Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "/v1/products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{products-api}}/v1/products",
+							"host": [
+								"{{products-api}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{products-api}}/v1/products",
+									"host": [
+										"{{products-api}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "148"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Sep 2021 21:35:59 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"products\": [\r\n        {\r\n            \"id\": \"c0b3fe2c-9cc9-475a-9c11-4cfaec941909\",\r\n            \"title\": \"Product 1\",\r\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\r\n            \"price\": 12.5,\r\n            \"image\": \"1631050815.png\"\r\n        },\r\n        {\r\n            \"id\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\r\n            \"title\": \"Product 2\",\r\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\r\n            \"price\": 280,\r\n            \"image\": \"1631051095.png\"\r\n        }\r\n    ],\r\n    \"meta\": {\r\n        \"total_entries\": 2,\r\n        \"current_page\": 1,\r\n        \"total_pages\": 1\r\n    }\r\n}"
+						},
+						{
+							"name": "/v1/products?page=2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{products-api}}/v1/products?page=2",
+									"host": [
+										"{{products-api}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "per_page",
+											"value": "10",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "148"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/2.0.1 Python/3.9.7"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Sep 2021 21:35:59 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"products\": [],\r\n    \"meta\": {\r\n        \"total_entries\": 2,\r\n        \"current_page\": 2,\r\n        \"total_pages\": 1\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/products?uuids[]=c0b3fe2c-9cc9-475a-9c11-4cfaec941909",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{products-api}}/v1/products?uuids%5B%5D=c0b3fe2c-9cc9-475a-9c11-4cfaec941909",
+							"host": [
+								"{{products-api}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "uuids%5B%5D",
+									"value": "c0b3fe2c-9cc9-475a-9c11-4cfaec941909"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/products?uuids[]=c0b3fe2c-9cc9-475a-9c11-4cfaec941909",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{products-api}}/v1/products?uuids%5B%5D=c0b3fe2c-9cc9-475a-9c11-4cfaec941909",
+									"host": [
+										"{{products-api}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "uuids%5B%5D",
+											"value": "c0b3fe2c-9cc9-475a-9c11-4cfaec941909"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 12 Sep 2021 17:24:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "x-srv-trace",
+									"value": "v=1;t=96437832fbfdbee0"
+								},
+								{
+									"key": "x-srv-span",
+									"value": "v=1;s=041de5589eccd425"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "120"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "118"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1631467496"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32c-eX5e2yceQewnIYhjSPOaR2EuDsk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"id\": \"c0b3fe2c-9cc9-475a-9c11-4cfaec941909\",\n            \"title\": \"Product 1\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n            \"price\": 12.5,\n            \"image\": \"1631050815.png\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/products?uuids[]=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{products-api}}/v1/products?uuids%5B%5D=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+							"host": [
+								"{{products-api}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "uuids%5B%5D",
+									"value": "23d3c285-e7b2-4bf6-a7d3-6a7c7043b943"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/products?uuids[]=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{products-api}}/v1/products?uuids%5B%5D=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+									"host": [
+										"{{products-api}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "uuids%5B%5D",
+											"value": "23d3c285-e7b2-4bf6-a7d3-6a7c7043b943"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 12 Sep 2021 17:24:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "x-srv-trace",
+									"value": "v=1;t=96437832fbfdbee0"
+								},
+								{
+									"key": "x-srv-span",
+									"value": "v=1;s=041de5589eccd425"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "120"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "118"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1631467496"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32c-eX5e2yceQewnIYhjSPOaR2EuDsk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"id\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\n            \"title\": \"Product 2\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n            \"price\": 280,\n            \"image\": \"1631051095.png\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "/v1/products?uuids[]=c0b3fe2c-9cc9-475a-9c11-4cfaec941909&uuids[]=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{products-api}}/v1/products?uuids%5B%5D=c0b3fe2c-9cc9-475a-9c11-4cfaec941909&uuids%5B%5D=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+							"host": [
+								"{{products-api}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "uuids%5B%5D",
+									"value": "c0b3fe2c-9cc9-475a-9c11-4cfaec941909"
+								},
+								{
+									"key": "uuids%5B%5D",
+									"value": "23d3c285-e7b2-4bf6-a7d3-6a7c7043b943"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "/v1/products?uuids[]=c0b3fe2c-9cc9-475a-9c11-4cfaec941909&uuids[]=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{products-api}}/v1/products?uuids%5B%5D=c0b3fe2c-9cc9-475a-9c11-4cfaec941909&uuids%5B%5D=23d3c285-e7b2-4bf6-a7d3-6a7c7043b943",
+									"host": [
+										"{{products-api}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "uuids%5B%5D",
+											"value": "c0b3fe2c-9cc9-475a-9c11-4cfaec941909"
+										},
+										{
+											"key": "uuids%5B%5D",
+											"value": "23d3c285-e7b2-4bf6-a7d3-6a7c7043b943"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 12 Sep 2021 17:24:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "x-srv-trace",
+									"value": "v=1;t=96437832fbfdbee0"
+								},
+								{
+									"key": "x-srv-span",
+									"value": "v=1;s=041de5589eccd425"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "120"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "118"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1631467496"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32c-eX5e2yceQewnIYhjSPOaR2EuDsk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"id\": \"c0b3fe2c-9cc9-475a-9c11-4cfaec941909\",\n            \"title\": \"Product 1\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n            \"price\": 12.5,\n            \"image\": \"1631050815.png\"\n        },\n        {\n            \"id\": \"23d3c285-e7b2-4bf6-a7d3-6a7c7043b943\",\n            \"title\": \"Product 2\",\n            \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n            \"price\": 280,\n            \"image\": \"1631051095.png\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "x-api-key",
+			"value": "PMAK-6137dfa173453700461a33da-8ecae3393710f0ceaff58d84c120d7cb90"
+		},
+		{
+			"key": "products-api",
+			"value": "https://3e50cd27-cf70-4c8b-89fd-869ec742555b.mock.pstmn.io"
+		}
+	]
+}

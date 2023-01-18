@@ -39,6 +39,6 @@ metadata:
   name: argocd-cm
   labels:
     app.kubernetes.io/name: argocd-cm
-    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/part-of: argocd-apps
 data:
   exec.enabled: "true"

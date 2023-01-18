@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: cart-api
-          image: docker.io/rempeloliveira/public:cart-api
+          image: rempeloliveira/public:cart-api
           ports:
             - containerPort: 80
       imagePullSecrets:

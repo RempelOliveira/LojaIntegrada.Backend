@@ -42,3 +42,4 @@ metadata:
     app.kubernetes.io/part-of: argocd-apps
 data:
   exec.enabled: "true"
+  exec.shells: "bash,sh,powershell,cmd"

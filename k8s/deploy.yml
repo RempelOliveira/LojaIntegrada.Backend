@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: LojaIntegrada.Backend
+  name: loja-integrada.cart-api
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: LojaIntegrada.Backend
+      app: cart-api
   template:
     metadata:
       labels:
-        app: LojaIntegrada.Backend
+        app: cart-api
     spec:
       containers:
-        - name: LojaIntegrada.Backend
-          image: hub.docker.com/r/rempeloliveira/public/tags/cart-api
+        - name: cart-api
+          image: docker.io/rempeloliveira/public:cart-api
           ports:
             - containerPort: 80
+      imagePullSecrets:
+        - name: docker-hub-credentials

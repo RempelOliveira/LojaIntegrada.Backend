@@ -47,7 +47,7 @@ spec:
             - name: MONGODB_NAME
               value: "cart_api"
             - name: MONGODB_URL
-              value: "mongodb://mongodb:mongodb@mongo:27017"
+              value: "mongodb://mongodb:mongodb@host.docker.internal:27017"
             - name: X-API
               value: "https://3e50cd27-cf70-4c8b-89fd-869ec742555b.mock.pstmn.io"
             - name: X_API_KEY

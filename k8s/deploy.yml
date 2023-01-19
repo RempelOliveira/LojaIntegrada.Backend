@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cart-api-service
+  namespace: staging-apps
 spec:
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 5000
   selector:
     app: cart-api
 
@@ -15,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cart-api-deployment
+  namespace: staging-apps
 spec:
   replicas: 1
   selector:

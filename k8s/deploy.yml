@@ -36,5 +36,19 @@ spec:
           ports:
             - containerPort: 80
           env:
+            - name: FLASK_ENV
+              value: "development"
+            - name: FLASK_DEBUGGER
+              value: "true"
             - name: FLASK_PORT
               value: "80"
+            - name: FLASK_DEBUG_PORT
+              value: "5001"
+            - name: MONGODB_NAME
+              value: "cart_api"
+            - name: MONGODB_URL
+              value: "mongodb://mongodb:mongodb@mongo:27017"
+            - name: X-API
+              value: "https://3e50cd27-cf70-4c8b-89fd-869ec742555b.mock.pstmn.io"
+            - name: X-API-KEY
+              value: "PMAK-6137dfa173453700461a33da-8ecae3393710f0ceaff58d84c120d7cb90"

@@ -17,6 +17,15 @@ services:
   app: &app
     build:
       context: .
+    environment:
+      FLASK_ENV: ${FLASK_ENV}
+      FLASK_DEBUGGER: ${FLASK_DEBUGGER}
+      FLASK_PORT: ${FLASK_PORT}
+      FLASK_DEBUG_PORT: ${FLASK_DEBUG_PORT}
+      MONGODB_NAME: ${MONGODB_NAME}
+      MONGODB_URL: ${MONGODB_URL}
+      X-API: ${X-API}
+      X-API-KEY: ${X-API-KEY}
     depends_on:
       - mongo
 

@@ -30,4 +30,4 @@ load_routes(Api(app))
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=os.getenv("FLASK_PORT"))

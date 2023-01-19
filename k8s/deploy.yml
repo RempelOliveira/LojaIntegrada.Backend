@@ -37,4 +37,4 @@ spec:
             - containerPort: 80
           env:
             - name: FLASK_PORT
-              value: 80
+              value: "80"

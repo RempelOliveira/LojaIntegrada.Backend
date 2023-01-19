@@ -83,6 +83,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cart-api-secrets
+  namespace: staging-apps
 type: Opaque
 stringData:
   FLASK_ENV: "development"

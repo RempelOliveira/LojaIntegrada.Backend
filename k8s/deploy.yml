@@ -4,12 +4,14 @@ metadata:
   name: cart-api-service
   namespace: staging-apps
 spec:
-  ports:
-    - port: 80
-      targetPort: 5000
-  type: LoadBalancer
   selector:
     app: cart-api
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5000
 
 ---
 

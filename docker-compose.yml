@@ -24,8 +24,8 @@ services:
       FLASK_DEBUG_PORT: ${FLASK_DEBUG_PORT}
       MONGODB_NAME: ${MONGODB_NAME}
       MONGODB_URL: ${MONGODB_URL}
-      X-API: ${X-API}
-      X-API-KEY: ${X-API-KEY}
+      X_API: ${X_API}
+      X_API_KEY: ${X_API_KEY}
     depends_on:
       - mongo
 

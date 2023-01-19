@@ -29,9 +29,9 @@ value: https://3e50cd27-cf70-4c8b-89fd-869ec742555b.mock.pstmn.io
 ```
 
 ```
-{{x-api-key}}
+{{X_API-key}}
 
-var:   x-api-key
+var:   X_API-key
 value: PMAK-6137dfa173453700461a33da-8ecae3393710f0ceaff58d84c120d7cb90
 ```
 

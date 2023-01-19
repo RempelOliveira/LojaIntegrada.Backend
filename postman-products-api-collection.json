@@ -14,8 +14,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-api-key",
-								"value": "{{x-api-key}}",
+								"key": "X_API-key",
+								"value": "{{X_API-key}}",
 								"type": "text"
 							}
 						],
@@ -162,8 +162,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-api-key",
-								"value": "{{x-api-key}}",
+								"key": "X_API-key",
+								"value": "{{X_API-key}}",
 								"type": "text"
 							}
 						],
@@ -191,8 +191,8 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "x-api-key",
-										"value": "{{x-api-key}}",
+										"key": "X_API-key",
+										"value": "{{X_API-key}}",
 										"type": "text"
 									}
 								],
@@ -285,8 +285,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-api-key",
-								"value": "{{x-api-key}}",
+								"key": "X_API-key",
+								"value": "{{X_API-key}}",
 								"type": "text"
 							}
 						],
@@ -314,8 +314,8 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "x-api-key",
-										"value": "{{x-api-key}}",
+										"key": "X_API-key",
+										"value": "{{X_API-key}}",
 										"type": "text"
 									}
 								],
@@ -408,8 +408,8 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-api-key",
-								"value": "{{x-api-key}}",
+								"key": "X_API-key",
+								"value": "{{X_API-key}}",
 								"type": "text"
 							}
 						],
@@ -441,8 +441,8 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "x-api-key",
-										"value": "{{x-api-key}}",
+										"key": "X_API-key",
+										"value": "{{X_API-key}}",
 										"type": "text"
 									}
 								],
@@ -558,7 +558,7 @@
 	],
 	"variable": [
 		{
-			"key": "x-api-key",
+			"key": "X_API-key",
 			"value": "PMAK-6137dfa173453700461a33da-8ecae3393710f0ceaff58d84c120d7cb90"
 		},
 		{

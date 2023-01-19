@@ -94,7 +94,7 @@ class TestCart(unittest.TestCase):
             "amount": 2
         })
 
-        mock_request.get(f'{os.getenv("X-API")}/v1/products?uuids[]={product.product_uuid}',
+        mock_request.get(f'{os.getenv("X_API")}/v1/products?uuids[]={product.product_uuid}',
             json={
                 "products": [
                     {

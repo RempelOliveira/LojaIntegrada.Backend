@@ -12,9 +12,9 @@ class ProductServices:
             for product in products:
                 uuids.append(f'uuids[]={product.product_uuid}')
 
-            response = requests.get(f'{os.getenv("X-API")}/v1/products?{"&".join(uuids)}',
+            response = requests.get(f'{os.getenv("X_API")}/v1/products?{"&".join(uuids)}',
                 headers={
-                    "X-API-KEY": os.getenv("X-API-KEY")
+                    "X_API-KEY": os.getenv("X_API-KEY")
                 }
             )
 

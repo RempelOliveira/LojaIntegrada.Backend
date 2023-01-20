@@ -37,4 +37,4 @@ spec:
             - containerPort: 80
           envFrom:
             - secretRef:
-              name: cart-api-secrets
+                name: cart-api-secrets

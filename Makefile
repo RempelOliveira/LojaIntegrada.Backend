@@ -45,7 +45,7 @@ run-debug:  ## Run api in debugger mode
 
 encrypt-secrets:  ## Encrypt secret vars
 	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
-		--age $$(microk8s kubectl get secret sops-secrets --namespace=kube-system --template={{.data.PUBLIC_KEY}} | base64 -d) $(file)
+		--age $$(cat ~/.sops/key.txt | grep -oP "public key: \K(.*)") $(file)
 
 decrypt-secrets:  ## Decrypt secret vars
 	@sops -d -i $(file)

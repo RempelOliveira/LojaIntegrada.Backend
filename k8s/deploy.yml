@@ -35,6 +35,6 @@ spec:
           image: rempeloliveira/public:cart-api.v2
           ports:
             - containerPort: 80
-        envFrom:
-          secretRef:
-            name: cart-api-secrets
+          envFrom:
+            - secretRef:
+              name: cart-api-secrets

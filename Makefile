@@ -1,3 +1,6 @@
+.ONESHELL:
+SHELL := /bin/bash
+
 -include .env
 export
 
@@ -38,6 +41,16 @@ run:  ## Run api
 	@docker-compose up cart_api
 
 run-debug:  ## Run api in debugger mode
-	docker-compose run --rm -e FLASK_DEBUGGER=${FLASK_DEBUGGER} --service-ports cart_api flask run --host 0.0.0.0
+	@docker-compose run --rm -e FLASK_DEBUGGER=${FLASK_DEBUGGER} --service-ports cart_api flask run --host 0.0.0.0
+
+encrypt-secrets:  ## Encrypt secret vars
+	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
+		--age $$(cat ~/.sops/key.txt |grep -oP "public key: \K(.*)") $(file)
+
+decrypt-secrets:  ## Decrypt secret vars
+	@sops -d -i $(file)
 
 install: build seeder test code-convention  ## Install api
+
+%:
+	@:

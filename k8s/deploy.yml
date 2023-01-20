@@ -39,7 +39,7 @@ spec:
             - name: FLASK_ENV
               valueFrom:
                 secretKeyRef:
-                  name: cart-api-secrets
+                  name: cart-api-secret
                   key: FLASK_ENV
             - name: FLASK_DEBUGGER
               valueFrom:

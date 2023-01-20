@@ -35,44 +35,6 @@ spec:
           image: rempeloliveira/public:cart-api.v2
           ports:
             - containerPort: 80
-          env:
-            - name: FLASK_ENV
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secret
-                  key: FLASK_ENV
-            - name: FLASK_DEBUGGER
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: FLASK_DEBUGGER
-            - name: FLASK_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: FLASK_PORT
-            - name: FLASK_DEBUG_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: FLASK_DEBUG_PORT
-            - name: MONGODB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: MONGODB_NAME
-            - name: MONGODB_URL
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: MONGODB_URL
-            - name: X_API
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: X_API
-            - name: X_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: cart-api-secrets
-                  key: X_API_KEY
+      envFrom:
+        secretRef:
+          name: cart-api-secrets

@@ -12,7 +12,7 @@ services:
       - mongo:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
-      - ${MONGODB_PORT}
+      - ${MONGODB_PORT}:${MONGODB_PORT}
 
   app: &app
     build:

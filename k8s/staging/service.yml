@@ -5,7 +5,7 @@ metadata:
   namespace: staging-apps
 spec:
   selector:
-    app.kubernetes.io/name: cart-api
+    app: cart-api
   type: LoadBalancer
   ports:
     - name: http

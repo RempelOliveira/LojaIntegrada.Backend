@@ -12,5 +12,3 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-  externalIPs:
-    - 80.11.12.10

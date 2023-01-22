@@ -1,12 +1,12 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: cart-api-service
   namespace: staging-apps
 spec:
   selector:
     app: cart-api
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       protocol: TCP

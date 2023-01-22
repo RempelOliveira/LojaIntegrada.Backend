@@ -17,7 +17,7 @@ spec:
         - name: cart-api
           image: docker.io/rempeloliveira/public:cart-api.v2
           ports:
-            - containerPort: 5000
+            - containerPort: 80
           envFrom:
             - secretRef:
                 name: cart-api-secrets

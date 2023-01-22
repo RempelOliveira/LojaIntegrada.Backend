@@ -12,3 +12,21 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongodb-service
+  namespace: staging-apps
+spec:
+  selector:
+    app: cart-api
+  type: NodePort
+  ports:
+    - name: http-mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+      nodePort: 32002

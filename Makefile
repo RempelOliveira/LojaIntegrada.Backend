@@ -28,7 +28,7 @@ bash:  ## Run api bin/bash
 	@docker-compose run --rm runner
 
 seeder:  ## Seed database
-	@docker-compose run --rm runner $(PYTHON) seeds/seed_*.py
+	@docker-compose run --rm runner python seeds/seed_*.py
 
 test:  ## Run api tests
 	@docker-compose run --rm runner pytest --cov-report=term-missing --cov-report=html --cov=.

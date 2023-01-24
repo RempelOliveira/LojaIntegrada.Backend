@@ -1,5 +1,5 @@
-.ONESHELL:
-SHELL := /bin/bash
+SHELL  = /bin/bash
+PYTHON = /usr/bin/python3
 
 -include .env
 export
@@ -18,7 +18,7 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@echo "Usage: make <command>"
 	@echo "Options:"
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@$(PYTHON) -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 build:  ## Build api
 	docker-compose down --volumes
@@ -28,7 +28,7 @@ bash:  ## Run api bin/bash
 	@docker-compose run --rm runner
 
 seeder:  ## Seed database
-	@docker-compose run --rm runner python seeds/seed_*.py
+	@docker-compose run --rm runner $(PYTHON) seeds/seed_*.py
 
 test:  ## Run api tests
 	@docker-compose run --rm runner pytest --cov-report=term-missing --cov-report=html --cov=.

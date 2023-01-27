@@ -45,7 +45,7 @@ run-debug:  ## Run api in debugger mode
 
 encrypt-secrets:  ## Encrypt secret vars
 	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
-		--age $$(cat ~/.sops/key.txt | grep -oP "public key: \K(.*)") $(file)
+		--age $$(cat ~/.sops/age/key.txt | grep -oP "public key: \K(.*)") $(file)
 
 decrypt-secrets:  ## Decrypt secret vars
 	@sops -d -i $(file)

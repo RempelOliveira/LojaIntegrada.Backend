@@ -8,7 +8,3 @@ resources:
   - deployment.yml
 generators:
   - secrets.yml
-generatorOptions:
-  labels:
-    deploy.type: kustomize
-  disableNameSuffixHash: true

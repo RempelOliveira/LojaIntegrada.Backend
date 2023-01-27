@@ -5,5 +5,5 @@ resources:
   - service.yml
   - deployment.yml
 
-generators:
-  - secrets-generator.yml
+# generators:
+#  - secrets-generator.yml

@@ -48,7 +48,8 @@ encrypt-secrets:  ## Encrypt secret vars
 		--age $$(cat ~/.sops/age/key.txt | grep -oP "public key: \K(.*)") $(file)
 
 decrypt-secrets:  ## Decrypt secret vars
-	@sops -d -i $(file)
+	@export SOPS_AGE_KEY_FILE=~/.sops/age/key.txt && \
+	    sops -d -i $(file)
 
 install: build seeder test code-convention  ## Install api
 

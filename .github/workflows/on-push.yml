@@ -1,0 +1,50 @@
+name: CartApi - on-push  ## To run, just push a commit to the working branch.
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_call:
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          cache: pip
+          python-version: 3.10.x
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements/development.txt
+
+      - name: Tests
+        run: |
+          pytest
+
+  code-convention:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          cache: pip
+          python-version: 3.10.x
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements/development.txt
+
+      - name: Code Convention
+        run: |
+          flake8 main.py app tests

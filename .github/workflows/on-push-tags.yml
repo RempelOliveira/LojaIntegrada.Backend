@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: rempeloliveira/public:cart-api.v1
+          tags: rempeloliveira/public:cart-api.${{  github.ref_name }}

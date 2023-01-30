@@ -30,7 +30,7 @@ bash:  ## Run api bin/bash
 seeder:  ## Seed database
 	@docker-compose run --rm runner python seeds/seed_*.py
 
-test:  ## Run api tests
+tests: -B  ## Run api tests
 	@docker-compose run --rm runner pytest --cov-report=term-missing --cov-report=html --cov=.
 
 code-convention:  ## Run code convention
@@ -41,7 +41,7 @@ run:  ## Run api
 	@docker-compose up cart_api
 
 run-debug:  ## Run api in debugger mode
-	@docker-compose run --rm -e FLASK_DEBUGGER=${FLASK_DEBUGGER} --service-ports cart_api flask run --host 0.0.0.0
+	@docker-compose run --rm --service-ports cart_api flask run
 
 encrypt-secrets:  ## Encrypt secret vars
 	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
@@ -51,7 +51,7 @@ decrypt-secrets:  ## Decrypt secret vars
 	@export SOPS_AGE_KEY_FILE=~/.sops/age/key.txt && \
 	    sops -d -i $(file)
 
-install: build seeder test code-convention  ## Install api
+install: build seeder tests code-convention  ## Install api
 
 %:
 	@:

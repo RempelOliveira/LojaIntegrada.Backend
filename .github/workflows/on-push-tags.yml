@@ -3,7 +3,7 @@ name: CartApi - on-push-tags  ## To run, create a tag using one of the patterns 
 on:
   push:
     tags:
-      - "[0-9]+.[0-9]+.[0-9](-staging)?"
+      - "[0-9]+.[0-9]+.[0-9]-staging"
 
 jobs:
   deploy:
@@ -12,3 +12,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: rempeloliveira/public:cart-api.${{  github.ref_name }}

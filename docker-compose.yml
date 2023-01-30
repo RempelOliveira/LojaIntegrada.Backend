@@ -18,9 +18,9 @@ services:
     build:
       context: .
     environment:
-      FLASK_ENV: ${FLASK_ENV}
-      FLASK_DEBUGGER: ${FLASK_DEBUGGER}
-      FLASK_PORT: ${FLASK_PORT}
+      FLASK_DEBUG: ${FLASK_DEBUG}
+      FLASK_RUN_PORT: ${FLASK_RUN_PORT}
+      FLASK_RUN_HOST: ${FLASK_RUN_HOST}
       FLASK_DEBUG_PORT: ${FLASK_DEBUG_PORT}
       MONGODB_NAME: ${MONGODB_NAME}
       MONGODB_URL: ${MONGODB_URL}
@@ -33,7 +33,7 @@ services:
     <<: *app
     container_name: cart_api
     ports:
-      - ${FLASK_PORT}:${FLASK_PORT}
+      - ${FLASK_RUN_PORT}:${FLASK_RUN_PORT}
       - ${FLASK_DEBUG_PORT}:${FLASK_DEBUG_PORT}
     volumes:
       - ./:/app

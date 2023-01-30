@@ -13,8 +13,12 @@ from app.modules.products.repositories import ProductRepository
 
 class TestProducts(unittest.TestCase):
     def tearDown(self):
-        _get_db().drop_collection("product")
+        _get_db().drop_collection("coupons")
+        _get_db().drop_collection("products")
         _get_db().drop_collection("carts")
+
+        _get_db().create_collection("products") \
+            .create_index([("product_uuid", 1), ("cart", 1)], unique=True)
 
     def create_cart(self, data):
         return CartRepository(**data).save()

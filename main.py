@@ -13,7 +13,7 @@ from app.routes import load_routes
 app = Flask(__name__)
 app.config["MONGODB_HOST"] = f'{os.getenv("MONGODB_URL")}/{os.getenv("MONGODB_NAME")}'
 
-if os.getenv("FLASK_DEBUGGER") == "True":
+if os.getenv("FLASK_DEBUG") == "True":
     debugger(os.getenv("FLASK_DEBUG_PORT"))
 
 MongoEngine(app)
@@ -30,4 +30,4 @@ load_routes(Api(app))
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=os.getenv("FLASK_PORT"))
+    app.run(host=os.getenv("FLASK_RUN_HOST"), port=os.getenv("FLASK_RUN_PORT"))

@@ -14,7 +14,7 @@ class ProductServices:
 
             response = requests.get(f'{os.getenv("X_API")}/v1/products?{"&".join(uuids)}',
                 headers={
-                    "X_API-KEY": os.getenv("X_API-KEY")
+                    "X-API-KEY": os.getenv("X_API_KEY")
                 }
             )
 

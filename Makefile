@@ -56,8 +56,7 @@ encrypt-gpg-secrets:  ## Encrypt secret vars gpg
 		-p 3850F1959B9F5E336DD9465EAAC4C06533D7E42A $(file)
 
 decrypt-gpg-secrets:  ## Decrypt secret vars gpg
-	@export SOPS_AGE_KEY_FILE=~/.sops/age/key.txt && \
-	    sops -d -i $(file)
+	@sops -d -i $(file)
 
 install: build seeder tests code-convention  ## Install api
 

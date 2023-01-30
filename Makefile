@@ -53,7 +53,7 @@ decrypt-secrets:  ## Decrypt secret vars
 
 encrypt-gpg-secrets:  ## Encrypt secret vars gpg
 	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
-		-p ${GPG_ID} $(file)
+		-p "${GPG_ID}" $(file)
 
 decrypt-gpg-secrets:  ## Decrypt secret vars gpg
 	@sops -d -i $(file)

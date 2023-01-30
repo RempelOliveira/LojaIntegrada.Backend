@@ -13,12 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Extract Metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: rempeloliveira/public
-
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -30,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: cart-api.v1
+          tags: rempeloliveira/public:cart-api.v1

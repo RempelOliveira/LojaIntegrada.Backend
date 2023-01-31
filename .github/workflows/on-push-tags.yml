@@ -24,7 +24,39 @@ jobs:
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
 
-      - name: Set up Docker Buildx
+      - id: cache-yq
+        name: Cache yq
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-yq
+          path: /usr/local/bin/yq
+          restore-keys: |
+            ${{ runner.os }}-yq
+
+      - name: SetUp Yq
+        if: steps.cache-yq.outputs.cache-hit != 'true'
+        run: |
+          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      - id: cache-argocd
+        name: Cache ArgoCd
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-argocd
+          path: /usr/local/bin/argocd
+          restore-keys: |
+            ${{ runner.os }}-argocd
+
+      - name: SetUp ArgoCd
+        if: steps.cache-argocd.outputs.cache-hit != 'true'
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+
+          rm argocd-linux-amd64
+
+      - name: SetUp Docker Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
@@ -42,10 +74,6 @@ jobs:
           cache-to: type=gha,mode=max
           tags: rempeloliveira/public:cart-api.${{ github.ref_name }}
 
-      - name: Install Dependencies
-        run: |
-          sudo snap install yq
-
       - name: Replace Deployment Image Version
         run: |
           yq -i '.spec.template.spec.containers[0].image |=
@@ -58,3 +86,17 @@ jobs:
 
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
           git push origin HEAD:${{ github.event.base_ref }}
+
+      - name: Sync ArgoCd Application
+        run: |
+          if [[ ${{ env.ENVIRONMENT }} == staging ]]; then
+            export ENVIRONMENT=-staging
+          else
+            export ENVIRONMENT=
+          fi
+
+          argocd login e49b-200-225-113-72.sa.ngrok.io:443 \
+            --username ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --grpc-web
+
+          argocd app sync cart-api$ENVIRONMENT \
+            --server e49b-200-225-113-72.sa.ngrok.io:443 --grpc-web

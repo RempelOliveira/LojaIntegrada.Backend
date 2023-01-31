@@ -14,21 +14,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Check Environments
+        run: |
+          if [[ ${{ github.ref_name }} == *-staging ]]; then
+            echo "ENVIRONMENT=staging" >> $GITHUB_ENV
+          else
+            echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          fi
+
       - name: Install Dependencies
         run: |
           sudo snap install yq
 
       - name: Replace Deployment Image Version
-        env:
-          ENVIRONMENT: "${{ endsWith(github.ref_name, "-staging") && 'staging' || 'production' }}"
         run: |
           yq -i '.spec.template.spec.containers[0].image |=
-            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/$ENVIRONMENT/deployment.yml
+            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git add .k8s/$ENVIRONMENT/deployment.yml
+          git add .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
           git push origin HEAD:${{ github.event.base_ref }}

@@ -41,5 +41,5 @@ jobs:
 
       - name: Commit Image Version
         run: |
-          echo "${GITHUB_HEAD_REF}"
+          echo "$(git rev-parse --abbrev-ref HEAD)"
 

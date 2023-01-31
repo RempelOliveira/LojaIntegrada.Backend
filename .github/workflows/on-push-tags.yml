@@ -35,9 +35,8 @@ jobs:
       - name: Replace Deployment Image Version
         uses: mikefarah/yq@master
         with:
-          cmd: |
-            yq '.spec.template.spec.containers[0].image |=
-              sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
+          cmd: yq '.spec.template.spec.containers[0].image |=
+            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
 
       #- name: Commit Image Version
       #  run: |

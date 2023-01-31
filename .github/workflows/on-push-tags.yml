@@ -53,3 +53,4 @@ jobs:
         run: |
           echo "${{ github.event.base_ref }}"
           echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.ref_name }}"

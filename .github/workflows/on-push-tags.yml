@@ -32,19 +32,23 @@ jobs:
       #    cache-to: type=gha,mode=max
       #    tags: rempeloliveira/public:cart-api.${{ github.ref_name }}
 
-      - name: Install Dependencies
+      #- name: Install Dependencies
+      #  run: |
+      #    sudo snap install yq
+
+      #- name: Replace Deployment Image Version
+      #  run: |
+      #    yq -i '.spec.template.spec.containers[0].image |=
+      #      sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
+
+      #    git config user.name RempelOliveira
+      #    git config user.email rempel.oliveira@gmail.com
+
+      #    git add .k8s/staging/deployment.yml
+
+      #    git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+      #    git push
+
+      - name: Get Branch
         run: |
-          sudo snap install yq
-
-      - name: Replace Deployment Image Version
-        run: |
-          yq -i '.spec.template.spec.containers[0].image |=
-            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
-
-          git config user.name RempelOliveira
-          git config user.email rempel.oliveira@gmail.com
-
-          git add .k8s/staging/deployment.yml
-
-          git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-          git push .
+          echo "${{ github.event.base_ref }}"

@@ -28,8 +28,8 @@ jobs:
         name: Cache yq
         uses: actions/cache@v3
         with:
-          path: /var/lib/snapd/snaps/yq*
           key: ${{ runner.os }}-yq
+          path: /snap/bin/yq
           restore-keys: |
             ${{ runner.os }}-yq
 
@@ -42,8 +42,8 @@ jobs:
         name: Cache ArgoCd
         uses: actions/cache@v3
         with:
-          path: /usr/local/bin/argocd
           key: ${{ runner.os }}-argocd
+          path: /usr/local/bin/argocd
           restore-keys: |
             ${{ runner.os }}-argocd
 

@@ -3,6 +3,7 @@ name: CartApi - on-push-tags  ## To run, create a tag using one of the patterns 
 on:
   push:
     tags:
+      - "[0-9]+.[0-9]+.[0-9]"
       - "[0-9]+.[0-9]+.[0-9]-staging"
 
 jobs:
@@ -36,14 +37,16 @@ jobs:
           sudo snap install yq
 
       - name: Replace Deployment Image Version
+        env:
+          ENVIRONMENT: if [[ ${{ github.ref_name }} *-staging ]]; then staging else production fi
         run: |
           yq -i '.spec.template.spec.containers[0].image |=
-            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
+            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/$ENVIRONMENT/deployment.yml
 
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git add .k8s/staging/deployment.yml
+          git add .k8s/$ENVIRONMENT/deployment.yml
 
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
           git push origin HEAD:${{ github.event.base_ref }}

@@ -22,7 +22,7 @@ jobs:
             export ENVIRONMENT=production
           fi
 
-          echo "ENVIRONMENT=production" >> $GITHUB_ENV
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

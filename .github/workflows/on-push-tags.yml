@@ -51,4 +51,5 @@ jobs:
 
       - name: Get Branch
         run: |
-          echo "${{ github.event.base_ref }}.replace(/\/refs\/tags\//, '')"
+          echo "${{ github.event.base_ref }}".replace(/\/refs\/tags\//, '')
+          echo ${{ github.event.base_ref }}.replace(/\/refs\/tags\//, '')

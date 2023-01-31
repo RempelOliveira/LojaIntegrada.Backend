@@ -71,4 +71,4 @@ jobs:
             export ENVIRONMENT=
           fi
 
-          argocd app sync cart-api$ENVIRONMENT --server e49b-200-225-113-72.sa.ngrok.io:443 --grpc-web
+          argocd app sync cart-api --server e49b-200-225-113-72.sa.ngrok.io:443 --grpc-web

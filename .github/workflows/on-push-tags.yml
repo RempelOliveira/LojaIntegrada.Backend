@@ -29,15 +29,15 @@ jobs:
         uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-yq
-          path: /usr/bin/yq
+          path: /usr/local/bin/yq
           restore-keys: |
             ${{ runner.os }}-yq
 
       - name: SetUp Yq
         if: steps.cache-yq.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
-          chmod +x /usr/bin/yq
+          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
 
       - id: cache-argocd
         name: Cache ArgoCd

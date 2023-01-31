@@ -33,24 +33,15 @@ jobs:
       #    tags: rempeloliveira/public:cart-api.${{ github.ref_name }}
 
       - name: Install Dependencies
-        run: >
+        run: |
           sudo snap install yq
 
       - name: Replace Deployment Image Version
-        run: >
+        run: |
           yq '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
 
-      #- name: Replace Deployment Image Version
-      #  uses: mikefarah/yq@master
-      #  with:
-      #    cmd: yq -i '.spec.template.spec.containers[0].image |=
-      #      sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
-
-      #- name: Commit Image Version
-      #  run: |
-      #    echo "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
-
-      #- name: Get CURRENT_BRANCH
-      #  run: |
-      #    echo ${{ env.CURRENT_BRANCH }}
+      - name: Commit Image Version
+        run: |
+          git commit -m "Replace Deployment Image Version to ${{ github.ref_name }}"
+          git push

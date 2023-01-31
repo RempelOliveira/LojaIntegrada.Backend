@@ -51,4 +51,5 @@ jobs:
 
       - name: Get Branch
         run: |
-          echo "${{ github.base_ref }}"
+          echo "${{ github.event.base_ref }}"
+          echo "${{ github.event.pull_request.base.ref }}"

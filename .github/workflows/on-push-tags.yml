@@ -23,33 +23,27 @@ jobs:
           fi
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+          echo "==== Deploy to $ENVIRONMENT"
 
-      - id: cache-yq
-        name: Cache yq
+      - id: cache
+        name: Packages Cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-yq
-          path: /usr/local/bin/yq
+          key: cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
+          path: |
+            /usr/local/bin/yq
+            /usr/local/bin/argocd
           restore-keys: |
-            ${{ runner.os }}-yq
+            cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
 
       - name: SetUp Yq
-        if: steps.cache-yq.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
-      - id: cache-argocd
-        name: Cache ArgoCd
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-argocd
-          path: /usr/local/bin/argocd
-          restore-keys: |
-            ${{ runner.os }}-argocd
-
       - name: SetUp ArgoCd
-        if: steps.cache-argocd.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
@@ -65,7 +59,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -82,10 +76,14 @@ jobs:
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git add .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+          git add .
 
-          git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-          git push origin HEAD:${{ github.event.base_ref }}
+          if git status | grep -q "Changes to be committed"; then
+            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+            git push origin HEAD:${{ github.event.base_ref }}
+          else
+            echo "==== No changes to commit"
+          fi
 
       - name: Sync ArgoCd Application
         run: |

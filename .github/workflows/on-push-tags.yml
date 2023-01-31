@@ -49,11 +49,11 @@ jobs:
       #    git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
       #    git push
 
-     - name: Get Branch
-       run: |
+      - name: Get Branch
+        run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw/origin\/}
           echo "BRANCH=$branch" >> $GITHUB_ENV
-    - name: Echo Branch
-      run: echo ${{ env.BRANCH }}
+      - name: Echo Branch
+        run: echo ${{ env.BRANCH }}
 

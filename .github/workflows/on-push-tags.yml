@@ -28,10 +28,10 @@ jobs:
         name: Cache yq
         uses: actions/cache@v3
         with:
-          path: /var/lib/snapd/snaps
-          key: ${{ runner.os }}-snap
+          path: /var/lib/snapd/snaps/yq*
+          key: ${{ runner.os }}-yq
           restore-keys: |
-            ${{ runner.os }}-snap
+            ${{ runner.os }}-yq
 
       - name: SetUp Yq
         if: steps.cache-yq.outputs.cache-hit != 'true'

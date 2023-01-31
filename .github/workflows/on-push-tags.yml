@@ -58,3 +58,13 @@ jobs:
 
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
           git push origin HEAD:${{ github.event.base_ref }}
+
+      - name: Sync ArgoCD Application
+        run: |
+          if [[ ${{ env.ENVIRONMENT }} == staging ]]; then
+            export ENVIRONMENT=-staging
+          else
+            export ENVIRONMENT=
+          fi
+
+          argocd app sync cart-api$ENVIRONMENT --server e49b-200-225-113-72.sa.ngrok.io:443 --grpc-web

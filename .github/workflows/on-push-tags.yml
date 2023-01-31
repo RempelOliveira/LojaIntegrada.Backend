@@ -58,7 +58,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -81,7 +81,7 @@ jobs:
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
             git push origin HEAD:${{ github.event.base_ref }}
           else
-            echo "No changes to commit"
+            echo "==== No changes to commit"
           fi
 
       - name: Sync ArgoCd Application

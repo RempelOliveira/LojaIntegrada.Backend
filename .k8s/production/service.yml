@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cart-api-service
+  namespace: production-apps
+spec:
+  selector:
+    app: cart-api
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8081
+      protocol: TCP
+      targetPort: 80

@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cart-api-deployment
+  namespace: production-apps
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: cart-api
+  template:
+    metadata:
+      labels:
+        app: cart-api
+    spec:
+      containers:
+        - name: cart-api
+          image: docker.io/rempeloliveira/public:cart-api.0.0.1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: cart-api-secrets

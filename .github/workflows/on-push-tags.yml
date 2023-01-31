@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          snap install yq
+          sudo snap install yq
 
       #- name: Replace Deployment Image Version
       #  uses: mikefarah/yq@master

@@ -28,7 +28,7 @@ jobs:
 
       - name: Replace Deployment Image Version
         uses: mikefarah/yq@master
-        run: |
-          yq e '.spec.template.spec.containers[0].image |= sub("{{ TAG_VERSION }}", "the-name-to-use")' \
-            .k8s/staging/deployment.yml
-
+        with:
+          cmd: |
+            yq e '.spec.template.spec.containers[0].image |= sub("{{ TAG_VERSION }}", "the-name-to-use")' \
+              .k8s/staging/deployment.yml

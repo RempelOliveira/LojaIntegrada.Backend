@@ -41,5 +41,5 @@ jobs:
 
       - name: Commit Image Version
         run: |
-          echo "${{ github.ref_name }}"
+          echo "${{ github.ref }}"
 

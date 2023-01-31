@@ -24,32 +24,25 @@ jobs:
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
 
-      - id: cache-yq
-        name: Cache yq
+      - id: cache
+        name: Packages Cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-yq
-          path: /usr/local/bin/yq
+          key: ${{ runner.os }}-cache
+          path: |
+            /usr/local/bin/yq
+            /usr/local/bin/argocd
           restore-keys: |
-            ${{ runner.os }}-yq
+            ${{ runner.os }}-cache
 
       - name: SetUp Yq
-        if: steps.cache-yq.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
-      - id: cache-argocd
-        name: Cache ArgoCd
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-argocd
-          path: /usr/local/bin/argocd
-          restore-keys: |
-            ${{ runner.os }}-argocd
-
       - name: SetUp ArgoCd
-        if: steps.cache-argocd.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd

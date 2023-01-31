@@ -41,5 +41,8 @@ jobs:
 
       - name: Commit Image Version
         run: |
-          echo "$(git rev-parse --abbrev-ref HEAD)"
+          echo "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
 
+      - name: Get CURRENT_BRANCH
+        run: |
+          echo ${{ env.CURRENT_BRANCH }}

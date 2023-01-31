@@ -47,4 +47,4 @@ jobs:
           git add .k8s/staging/deployment.yml
 
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-          git push origin HEAD:refs/heads/CA-3
+          git push origin HEAD:${{ github.event.base_ref }}

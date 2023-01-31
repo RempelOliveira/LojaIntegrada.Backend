@@ -36,7 +36,7 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: |
-            yq -i '.spec.template.spec.containers[0].image |=
+            yq '.spec.template.spec.containers[0].image |=
               sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
 
       #- name: Commit Image Version

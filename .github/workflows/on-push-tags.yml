@@ -71,5 +71,5 @@ jobs:
             export ENVIRONMENT=
           fi
 
-          argocd login e49b-200-225-113-72.sa.ngrok.io:443 --name ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --grpc-web
+          argocd login e49b-200-225-113-72.sa.ngrok.io:443 --username ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --grpc-web
           argocd app sync cart-api --server e49b-200-225-113-72.sa.ngrok.io:443 --grpc-web

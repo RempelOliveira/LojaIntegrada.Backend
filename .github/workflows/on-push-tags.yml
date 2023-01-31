@@ -23,7 +23,7 @@ jobs:
           fi
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
-          echo "====== Deploy to $ENVIRONMENT"
+          echo "==== Deploy to $ENVIRONMENT"
 
       - id: cache
         name: Packages Cache
@@ -82,7 +82,7 @@ jobs:
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
             git push origin HEAD:${{ github.event.base_ref }}
           else
-            echo "====== No changes to commit"
+            echo "==== No changes to commit"
           fi
 
       - name: Sync ArgoCd Application

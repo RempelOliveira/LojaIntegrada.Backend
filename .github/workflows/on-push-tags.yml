@@ -51,6 +51,4 @@ jobs:
 
       - name: Get Branch
         run: |
-          echo "${{ github.event.base_ref }}"
-          echo "${{ github.event.pull_request.base.ref }}"
-          echo "${{ github.ref_name }}"
+          echo "${{ github.event.base_ref }}.replace(/\/refs\/tags\//, '')"

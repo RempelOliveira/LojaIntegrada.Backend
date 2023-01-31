@@ -44,6 +44,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          brew install argocd
           sudo snap install yq
 
       - name: Replace Deployment Image Version

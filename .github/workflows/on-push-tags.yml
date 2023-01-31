@@ -72,13 +72,17 @@ jobs:
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
+          if git status | grep -q "Changes to be committed"
+
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git add .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+          git add .
 
-          git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-          git push origin HEAD:${{ github.event.base_ref }}
+          if [[ git status | grep -q "Changes to be committed" ]]; then
+            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+            git push origin HEAD:${{ github.event.base_ref }}
+          fi
 
       - name: Sync ArgoCd Application
         run: |

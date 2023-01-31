@@ -53,7 +53,5 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw##*/}
-          echo "BRANCH=$branch" >> $GITHUB_ENV
-      - name: Echo Branch
-        run: echo ${{ env.BRANCH }}
-
+          echo "::set-output name=branch::$branch"
+          echo "Branch is $branch."

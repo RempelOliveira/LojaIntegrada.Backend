@@ -41,8 +41,6 @@ jobs:
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/staging/deployment.yml
 
-      - name: Commit Image Version
-        run: |
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
           git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"

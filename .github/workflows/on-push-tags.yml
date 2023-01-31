@@ -29,4 +29,4 @@ jobs:
       - name: Replace Deployment Image Version
         uses: mikefarah/yq@master
         with:
-          cmd: yq e -i '.spec.template.spec.containers[0].image |= sub("{{ TAG_VERSION }}", "${{ github.ref_name }}")' .k8s/staging/deployment.yml
+          cmd: yq -i '.spec.template.spec.containers[0].image |= sub("{{ TAG_VERSION }}", "${{ github.ref_name }}")' .k8s/staging/deployment.yml

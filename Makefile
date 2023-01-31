@@ -58,6 +58,14 @@ encrypt-gpg-secrets:  ## Encrypt secret vars gpg
 decrypt-gpg-secrets:  ## Decrypt secret vars gpg
 	@sops -d -i $(file)
 
+create-tag:  ##
+	@git tag $(tag) && \
+	  git push origin $(tag)
+
+delete-tag:  ##
+	@git tag -d $(tag) && \
+	  git push origin :refs/tags/$(tag)
+
 install: build seeder tests code-convention  ## Install api
 
 %:

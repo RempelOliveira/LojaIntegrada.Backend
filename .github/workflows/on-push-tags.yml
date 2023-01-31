@@ -24,21 +24,27 @@ jobs:
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
 
-      - name: SetUp yq
+      - name: Cache yq
+        uses: actions/cache@v3
         with:
           path: /var/lib/snapd/snaps
           key: ${{ runner.os }}-snap
           restore-keys: |
             ${{ runner.os }}-snap
+        
+      - name: SetUp Yq
         run: |
           sudo snap install yq
 
-      - name: SetUp ArgoCd
+      - name: Cache ArgoCd
+        uses: actions/cache@v3
         with:
           path: /usr/local/bin/argocd
           key: ${{ runner.os }}-argocd
           restore-keys: |
             ${{ runner.os }}-argocd
+
+      - name: SetUp ArgoCd
         run: |
           curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd

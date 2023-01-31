@@ -23,6 +23,7 @@ jobs:
           fi
 
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+          echo "==== ENVIRONMENT=$ENVIRONMENT"
 
       - id: cache
         name: Packages Cache
@@ -77,7 +78,7 @@ jobs:
 
           git add .
 
-          if [ $(git status | grep -q "Changes to be committed") ]; then
+          if [ git status | grep -q "Changes to be committed" ]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
             git push origin HEAD:${{ github.event.base_ref }}
           else

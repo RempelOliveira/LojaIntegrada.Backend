@@ -5,11 +5,14 @@ on:
     tags:
       - "[0-9]+.[0-9]+.[0-9]"
       - "[0-9]+.[0-9]+.[0-9]-staging"
+  workflow_run:
+    workflows: [CartApi - on-push]
+    types:
+      - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-22.04
-    needs: CartApi - on-push
 
     steps:
       - name: Checkout

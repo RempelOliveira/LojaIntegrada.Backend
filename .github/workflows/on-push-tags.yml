@@ -9,6 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
+    needs: CartApi - on-push
 
     steps:
       - name: Checkout

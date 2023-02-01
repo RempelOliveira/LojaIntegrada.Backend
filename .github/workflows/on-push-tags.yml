@@ -93,7 +93,7 @@ jobs:
             export ENVIRONMENT=
           fi
 
-          argocd login ${ARGOCD_SERVER} \
+          argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USERNAME }} --password ${{ secrets.ARGOCD_PASSWORD }} --grpc-web
 
-          argocd app sync cart-api$ENVIRONMENT --server ${ARGOCD_SERVER} --grpc-web
+          argocd app sync cart-api$ENVIRONMENT --server ${{ secrets.ARGOCD_SERVER }} --grpc-web

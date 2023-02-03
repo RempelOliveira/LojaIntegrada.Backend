@@ -98,6 +98,10 @@ jobs:
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
 
+          echo "---------------------------------"
+          echo $APP_NAME_ENVIRONMENT
+          echo "---------------------------------"
+
           argocd app create cart-api$APP_NAME_ENVIRONMENT \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
             --path .k8s/{{ env.ENVIRONMENT }} \

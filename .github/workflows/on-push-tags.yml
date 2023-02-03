@@ -93,7 +93,7 @@ jobs:
             --grpc-web
 
           argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }}
-            --repo {{ github.repositoryUrl }}
+            --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git
             --path .k8s/{{ env.ENVIRONMENT }}
             --dest-server https://kubernetes.default.svc
             --dest-namespace {{ env.ENVIRONMENT }}-apps

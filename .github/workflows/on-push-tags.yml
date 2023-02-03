@@ -87,7 +87,11 @@ jobs:
 
       - name: Sync ArgoCd Application
         run: |
-          export APP_NAME_ENVIRONMENT=[[ ${{ env.ENVIRONMENT }} == staging ]] && '-staging' || ''
+          if [[ ${{ env.ENVIRONMENT }} == staging ]]; then
+            export APP_NAME_ENVIRONMENT=-staging
+          else
+            export APP_NAME_ENVIRONMENT=
+          fi
 
           argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USERNAME }} \

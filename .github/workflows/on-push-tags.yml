@@ -87,12 +87,18 @@ jobs:
 
       - name: Sync ArgoCd Application
         run: |
+          if [[ ${{ env.ENVIRONMENT }} == staging ]]; then
+            APP_NAME_ENVIRONMENT=-staging
+          else
+            APP_NAME_ENVIRONMENT=
+          fi
+
           argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USERNAME }} \
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
 
-          argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
+          argocd app create cart-api$APP_NAME_ENVIRONMENT \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
             --path .k8s/{{ env.ENVIRONMENT }} \
             --dest-server https://kubernetes.default.svc \
@@ -100,6 +106,6 @@ jobs:
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web
 
-          argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
+          argocd app sync cart-api$APP_NAME_ENVIRONMENT \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web

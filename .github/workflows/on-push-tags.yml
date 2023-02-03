@@ -92,7 +92,7 @@ jobs:
             --password ${{ secrets.ARGOCD_PASSWORD }}
             --grpc-web
 
-          argocd app create cart-api${{ env.ENVIRONMENT == staging && -env.ENVIRONMENT || "" }} && "" || echo ""
+          argocd app create cart-api${{ env.ENVIRONMENT == "staging" && -env.ENVIRONMENT || "" }} && "" || echo ""
             --repo {{ github.repositoryUrl }}
             --path .k8s/{{ env.ENVIRONMENT }}
             --dest-server https://kubernetes.default.svc
@@ -100,6 +100,6 @@ jobs:
             --server ${{ secrets.ARGOCD_SERVER }}
             --grpc-web
 
-          argocd app sync cart-api${{ env.ENVIRONMENT == staging && -env.ENVIRONMENT || "" }}
+          argocd app sync cart-api${{ env.ENVIRONMENT == "staging" && -env.ENVIRONMENT || "" }}
             --server ${{ secrets.ARGOCD_SERVER }}
             --grpc-web

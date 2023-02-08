@@ -99,7 +99,8 @@ jobs:
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ env.ENVIRONMENT }}-apps \
             --server ${{ secrets.ARGOCD_SERVER }} \
-            --grpc-web
+            --grpc-web \
+            --force
 
           argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --server ${{ secrets.ARGOCD_SERVER }} \

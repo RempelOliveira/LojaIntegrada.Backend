@@ -1,0 +1,11 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Prometheus
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://host.docker.internal:3000
+    editable: false

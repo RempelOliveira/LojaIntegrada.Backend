@@ -66,6 +66,10 @@ delete-tag:  ##
 	@git tag -d $(tag) && \
 	  git push origin :refs/tags/$(tag)
 
+monitoring: -B  ## Run prometheus
+	@docker-compose up -d prometheus \
+	  grafana
+
 install: build seeder tests code-convention  ## Install api
 
 %:

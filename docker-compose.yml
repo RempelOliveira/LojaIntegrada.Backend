@@ -1,16 +1,16 @@
 version: "3.9"
 
 services:
-  mongo:
+  mongodb:
     image: mongo:5.0.2
-    container_name: cart_mongodb
+    container_name: cart-api_mongodb
     environment:
       - MONGO_INITDB_DATABASE=${MONGODB_NAME}
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     volumes:
-      - mongo:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb:/data/db
+      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js:ro
     ports:
       - ${MONGODB_PORT}:${MONGODB_PORT}
 
@@ -27,11 +27,11 @@ services:
       X_API: ${X_API}
       X_API_KEY: ${X_API_KEY}
     depends_on:
-      - mongo
+      - mongodb
 
   cart_api:
     <<: *app
-    container_name: cart_api
+    container_name: cart-api
     ports:
       - ${FLASK_RUN_PORT}:${FLASK_RUN_PORT}
       - ${FLASK_DEBUG_PORT}:${FLASK_DEBUG_PORT}
@@ -44,5 +44,27 @@ services:
       - .env
     command: /bin/bash
 
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    container_name: cart-api_prometheus
+    volumes:
+      - ./.monitoring/prometheus/:/etc/prometheus/
+    ports:
+      - 3000:9090
+
+  grafana:
+    image: grafana/grafana:9.0.2
+    container_name: cart-api_grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=grafana
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - ./.monitoring/grafana/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./.monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+    depends_on:
+      - prometheus
+    ports:
+      - 3001:3000
+
 volumes:
-  mongo:
+  mongodb:

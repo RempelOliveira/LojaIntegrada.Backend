@@ -87,15 +87,12 @@ jobs:
 
       - name: Sync ArgoCd Application
         run: |
+          echo "Env: ${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }}"
+
           argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USERNAME }} \
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
-
-          echo "---------------------------------"
-          echo ${{ github.repositoryUrl }}
-          echo ${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }}
-          echo "---------------------------------"
 
           argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \

@@ -100,8 +100,9 @@ jobs:
             --dest-namespace ${{ env.ENVIRONMENT }}-apps \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web \
-            --force
+            --upsert
 
           argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web
+

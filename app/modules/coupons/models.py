@@ -8,7 +8,6 @@ class Discount(EmbeddedDocument):
     type = StringField(required=True, choices=DISCOUNT_TYPES)
     value = DecimalField(required=True)
 
-
 class Coupon(Document):
     code = StringField(required=True, unique=True)
     discount = EmbeddedDocumentField("Discount", required=True)

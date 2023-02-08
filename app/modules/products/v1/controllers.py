@@ -36,7 +36,6 @@ class Products(Resource):
 
         return marshal({"id": cart.id, "products": products}, ProductsSerializers.output_data()), 201
 
-
 class Product(Resource):
     @validate_data(ProductSerializers.input_data())
     def patch(self, cart_id, product_id):

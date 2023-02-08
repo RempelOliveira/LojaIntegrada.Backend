@@ -6,8 +6,8 @@ on:
       - "[0-9]+.[0-9]+.[0-9]"
       - "[0-9]+.[0-9]+.[0-9]-staging"
     workflow_run:
-      types: completed
       workflows: CartApi - on-push
+      types: completed
 
 jobs:
   deploy:

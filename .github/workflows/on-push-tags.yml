@@ -1,14 +1,14 @@
 name: CartApi - on-push-tags  ## To run, create a tag using one of the patterns below.
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - Testing
+    types:
+      - CartApi - on-push
     tags:
       - "[0-9]+.[0-9]+.[0-9]"
       - "[0-9]+.[0-9]+.[0-9]-staging"
-  workflow_run:
-    workflows: [CartApi - on-push]
-    types:
-      - completed
 
 jobs:
   deploy:

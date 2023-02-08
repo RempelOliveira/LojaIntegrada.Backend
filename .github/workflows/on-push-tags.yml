@@ -1,18 +1,13 @@
 name: CartApi - on-push-tags  ## To run, create a tag using one of the patterns below.
 
 on:
-  workflow_run:
-    workflows:
-      - Testing
-    types:
-      - CartApi - on-push
+  push:
     tags:
       - "[0-9]+.[0-9]+.[0-9]"
       - "[0-9]+.[0-9]+.[0-9]-staging"
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-22.04
 
     steps:

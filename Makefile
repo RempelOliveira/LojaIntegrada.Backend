@@ -44,7 +44,7 @@ run-debug:  ## Run api in debugger mode
 	@docker-compose run --rm --service-ports cart_api flask run
 
 encrypt-secrets:  ## Encrypt secret vars
-	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
+	@sops -e -i --encrypted-regex "^(data|stringData)$$" \
 		--age $$(cat ~/.sops/age/key.txt | grep -oP "public key: \K(.*)") $(file)
 
 decrypt-secrets:  ## Decrypt secret vars
@@ -52,8 +52,8 @@ decrypt-secrets:  ## Decrypt secret vars
 	    sops -d -i $(file)
 
 encrypt-gpg-secrets:  ## Encrypt secret vars gpg
-	@sops --e -i --encrypted-regex "^(data|stringData)$$" \
-		-p "${GPG_ID}" $(file)
+	@sops -e -i --encrypted-regex "^(data|stringData)$$" \
+		-p "$$(gpg --list-secret-keys $$(kubectl config get-contexts -o name) | sed -n 2p | xargs)" $(file)
 
 decrypt-gpg-secrets:  ## Decrypt secret vars gpg
 	@sops -d -i $(file)

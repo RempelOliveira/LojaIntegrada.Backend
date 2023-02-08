@@ -92,14 +92,17 @@ jobs:
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
 
-	        argocd app create cart-api${{ env.ENVIRONMENT == staging && -env.ENVIRONMENT || "" }} && "" || echo "" \
-	          --repo {{ github.repositoryUrl }} \
-            --path .k8s/{{ env.ENVIRONMENT }} \
+          argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
+            --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
+            --path .k8s/${{ env.ENVIRONMENT }} \
+            --revision ${{ github.ref_name }} \
             --dest-server https://kubernetes.default.svc \
-            --dest-namespace {{ env.ENVIRONMENT }}-apps \
+            --dest-namespace ${{ env.ENVIRONMENT }}-apps \
+            --server ${{ secrets.ARGOCD_SERVER }} \
+            --grpc-web \
+            --upsert
+
+          argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web
 
-          argocd app sync cart-api${{ env.ENVIRONMENT == staging && -env.ENVIRONMENT || "" }} \
-            --server ${{ secrets.ARGOCD_SERVER }} \
-            --grpc-web

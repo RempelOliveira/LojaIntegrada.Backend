@@ -95,7 +95,7 @@ jobs:
           argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
             --path .k8s/${{ env.ENVIRONMENT }} \
-            --revision ${{ github.event.base_ref }}
+            --revision ${{ github.event.base_ref }} \
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ env.ENVIRONMENT }}-apps \
             --server ${{ secrets.ARGOCD_SERVER }} \

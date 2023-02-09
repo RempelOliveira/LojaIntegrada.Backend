@@ -47,9 +47,6 @@ services:
   prometheus:
     image: prom/prometheus:v2.42.0
     container_name: cart-api_prometheus
-    command:
-      - --web.config.file=/etc/prometheus/web.yml
-      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./.monitoring/prometheus/:/etc/prometheus/
     ports:
@@ -59,10 +56,8 @@ services:
     image: grafana/grafana:9.3.6
     container_name: cart-api_grafana
     environment:
-      PROMETHEUS_USER: ${PROMETHEUS_USER}
-      PROMETHEUS_PASSWORD: ${PROMETHEUS_PASSWORD}
-      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER}
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
     volumes:
       - ./.monitoring/grafana/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./.monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards

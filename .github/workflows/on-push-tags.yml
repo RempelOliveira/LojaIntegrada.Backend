@@ -80,7 +80,7 @@ jobs:
 
           if git status | grep -q "Changes to be committed"; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push
+            git push origin HEAD:CA-7
           else
             echo "==== No changes to commit"
           fi

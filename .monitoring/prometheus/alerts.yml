@@ -8,11 +8,3 @@ groups:
         severity: critical
       annotations:
         summary: Api HealthCheck
-
-    - alert: MongoDbHealth
-      expr: mongodb_status{job="CartApi", name="MongoDb"} != 1
-      for: 5s
-      labels:
-        severity: critical
-      annotations:
-        summary: MongoDb HealthCheck

@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY requirements/* requirements/
 
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements/development.txt
 
 COPY . .
@@ -19,6 +20,4 @@ ENV MONGODB_URL ${MONGODB_URL}
 ENV X_API ${X_API}
 ENV X_API_KEY ${X_API_KEY}
 
-ENV DEBUG_METRICS true
-
-CMD flask run
+CMD DEBUG_METRICS=true flask run

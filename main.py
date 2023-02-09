@@ -33,7 +33,7 @@ RESTfulPrometheusMetrics(app, restful_api, path="/metrics", metrics_decorator=me
 
 @metrics_auth.verify_password
 def verify_credentials(username, password):
-    return (username, password) == ("user", "pass")
+    return (username, password) == (os.getenv("METRICS_USER"), os.getenv("METRICS_PASSWORD"))
 
 @app.errorhandler(404)
 def page_not_found(e):

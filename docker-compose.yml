@@ -45,19 +45,23 @@ services:
     command: /bin/bash
 
   prometheus:
-    image: prom/prometheus:v2.36.2
+    image: prom/prometheus:v2.42.0
     container_name: cart-api_prometheus
+    command:
+      - --web.config.file=/prometheus/web.yml
     volumes:
-      - ./.monitoring/prometheus/:/etc/prometheus/
+      - ./.monitoring/prometheus/:/prometheus/
     ports:
       - 3000:9090
 
   grafana:
-    image: grafana/grafana:9.0.2
+    image: grafana/grafana:9.3.6
     container_name: cart-api_grafana
     environment:
-      - GF_SECURITY_ADMIN_USER=grafana
-      - GF_SECURITY_ADMIN_PASSWORD=grafana
+      PROMETHEUS_USER: ${PROMETHEUS_USER}
+      PROMETHEUS_PASSWORD: ${PROMETHEUS_PASSWORD}
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
     volumes:
       - ./.monitoring/grafana/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./.monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards

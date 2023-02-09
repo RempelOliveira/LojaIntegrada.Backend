@@ -34,7 +34,6 @@ class ProductsSerializers:
             )
         }
 
-
 class ProductSerializers:
     def input_data():
         return {

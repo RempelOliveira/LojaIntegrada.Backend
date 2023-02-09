@@ -1,0 +1,10 @@
+groups:
+  - name: CartApi Alerts
+    rules:
+    - alert: ApiHealth
+      expr: up{job="CartApi"} < 1
+      for: 5s
+      labels:
+        severity: critical
+      annotations:
+        summary: Api HealthCheck

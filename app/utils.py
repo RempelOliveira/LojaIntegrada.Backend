@@ -13,7 +13,6 @@ def merge_attrs(data, attrs):
 
     return data
 
-
 def get_json_request():
     def parse_json(data):
         for key, value in data.items():

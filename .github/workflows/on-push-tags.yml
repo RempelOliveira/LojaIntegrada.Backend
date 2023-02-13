@@ -9,5 +9,3 @@ on:
 jobs:
   deploy:
     uses: RempelOliveira/ArgoCD.Deployment/.github/workflows/deploy.yml@main
-    with:
-      deploy-file: .k8s/

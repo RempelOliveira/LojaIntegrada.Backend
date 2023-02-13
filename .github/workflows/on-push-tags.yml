@@ -25,26 +25,9 @@ jobs:
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
           echo "==== Deploy to $ENVIRONMENT"
 
-      - id: cache
-        name: Packages Cache
-        uses: actions/cache@v3
-        with:
-          key: cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
-          path: |
-            /usr/local/bin/yq
-            /usr/local/bin/argocd
-          restore-keys: |
-            cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
-
-      - name: SetUp Yq
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
-          chmod +x /usr/local/bin/yq
-
       - name: Check Deployment Image Version
         run: |
-          IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | yq -r .spec.template.spec.containers[0].image | sed "s/.*.:[a-z-]*.//")
+          IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | awk "/image:/ {print $2}" | sed "s/.*.cart-api.//")
 
           if [[ $IMAGE_VERSION == ${{ github.ref_name }} ]]; then
             echo "==== Ok"
@@ -52,6 +35,17 @@ jobs:
             echo "==== Error: Image version is different from tag."
             exit
           fi
+
+      - id: cache
+        name: Packages Cache
+        uses: actions/cache@v3
+        with:
+          key: cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
+          path: |
+            /usr/bin/docker
+            /usr/local/bin/argocd
+          restore-keys: |
+            cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
 
       - name: SetUp ArgoCd
         if: steps.cache.outputs.cache-hit != 'true'

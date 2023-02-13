@@ -9,4 +9,5 @@ on:
 jobs:
   deploy:
     uses: RempelOliveira/ArgoCD.Deployment/.github/workflows/deploy.yml@main
-    secrets: inherit
+    with:
+      deploy-file: .k8s/

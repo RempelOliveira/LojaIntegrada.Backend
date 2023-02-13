@@ -50,59 +50,9 @@ jobs:
 
           rm argocd-linux-amd64
 
-      - name: SetUp Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          tags: rempeloliveira/public:cart-api.${{ github.ref_name }}
-
       - name: Replace Deployment Image Version
         run: |
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
-          git config user.name RempelOliveira
-          git config user.email rempel.oliveira@gmail.com
-
-          git add .
-
-          if git status | grep -q "Changes to be committed"; then
-            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin HEAD:CA-7
-          else
-            echo "==== No changes to commit"
-          fi
-
-      - name: Sync ArgoCd Application
-        run: |
-          argocd login ${{ secrets.ARGOCD_SERVER }} \
-            --username ${{ secrets.ARGOCD_USERNAME }} \
-            --password ${{ secrets.ARGOCD_PASSWORD }} \
-            --grpc-web
-
-          argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
-            --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
-            --path .k8s/${{ env.ENVIRONMENT }} \
-            --revision ${{ github.ref_name }} \
-            --dest-server https://kubernetes.default.svc \
-            --dest-namespace ${{ env.ENVIRONMENT }}-apps \
-            --server ${{ secrets.ARGOCD_SERVER }} \
-            --grpc-web \
-            --upsert
-
-          argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
-            --server ${{ secrets.ARGOCD_SERVER }} \
-            --grpc-web
-
+          cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml

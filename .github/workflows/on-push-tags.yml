@@ -27,9 +27,9 @@ jobs:
 
       - name: Get Branch Name
         run: |
-          BASE_REF=${{ github.event.base_ref }}
+          export BRANCH_NAME=${{ github.event.base_ref }}
 
-          echo "BRANCH_NAME=${BASE_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${BRANCH_NAME#refs/heads/}" >> $GITHUB_ENV
           echo "==== Source from $BRANCH_NAME"
 
       - id: cache

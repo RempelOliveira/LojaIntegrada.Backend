@@ -40,12 +40,12 @@ jobs:
         name: Packages Cache
         uses: actions/cache@v3
         with:
-          key: cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
+          key: cache-packages-a4854a98-4987-7652-as87-54as87qw458qa
           path: |
             /usr/bin/docker
             /usr/local/bin/argocd
           restore-keys: |
-            cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
+            cache-packages-a4854a98-4987-7652-as87-54as87qw458qa
 
       - name: SetUp Docker Buildx
         if: steps.cache.outputs.cache-hit != 'true'

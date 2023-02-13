@@ -52,7 +52,20 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
-          echo -------------------------------
-          echo ${{ github.head_ref || github.ref_name }}
-          echo ${GITHUB_REF#refs/heads/}
-          echo -------------------------------
+          yq -i '.spec.template.spec.containers[0].image |=
+            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+
+          cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+
+          git config user.name RempelOliveira
+          git config user.email rempel.oliveira@gmail.com
+
+          git add .
+
+          if [[ $(git status --porcelain | wc -l) == 1 ]]; then
+            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "==== No changes to commit"
+          fi
+

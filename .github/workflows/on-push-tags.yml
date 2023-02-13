@@ -46,7 +46,7 @@ jobs:
         run: |
           IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | yq -r .spec.template.spec.containers[0].image | sed "s/.*.:[a-z-]*.//")
 
-          if [[ IMAGE_VERSION != ${{ github.ref_name }} ]]; then
+          if [[ $IMAGE_VERSION != ${{ github.ref_name }} ]]; then
             echo "==== Error: The image version is different from tag"
             exit 1
           fi

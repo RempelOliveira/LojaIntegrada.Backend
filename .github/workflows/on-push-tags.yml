@@ -83,6 +83,7 @@ jobs:
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
+          git checkout -b ${{ env.BRANCH_NAME }}
           git add .
 
           if [[ $(git status --porcelain | wc -l) == 1 ]]; then

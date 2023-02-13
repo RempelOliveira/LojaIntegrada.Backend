@@ -14,26 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Check Environment
-        run: |
-          if [[ ${{ github.ref_name }} == *-staging ]]; then
-            export ENVIRONMENT=staging
-          else
-            export ENVIRONMENT=production
-          fi
-
-          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
-          echo "==== Deploy to $ENVIRONMENT"
-
-      - name: Check Deployment Image Version
-        run: |
-          IMAGE_VERSION=$(cat .k8s/staging/deployment.yml | yq -r .spec.template.spec.containers[0].image | sed "s/.*.:[a-z-]*.//")
-
-          if [[ IMAGE_VERSION != ${{ github.ref_name }} ]]; then
-            echo "==== Error: The image version is different from tag"
-            exit 1
-          fi
-
       - id: cache
         name: Packages Cache
         uses: actions/cache@v3
@@ -50,6 +30,26 @@ jobs:
         run: |
           wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
+
+      - name: Check Environment
+        run: |
+          if [[ ${{ github.ref_name }} == *-staging ]]; then
+            export ENVIRONMENT=staging
+          else
+            export ENVIRONMENT=production
+          fi
+
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+          echo "==== Deploy to $ENVIRONMENT"
+
+      - name: Check Deployment Image Version
+        run: |
+          IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | yq -r .spec.template.spec.containers[0].image | sed "s/.*.:[a-z-]*.//")
+
+          if [[ IMAGE_VERSION != ${{ github.ref_name }} ]]; then
+            echo "==== Error: The image version is different from tag"
+            exit 1
+          fi
 
       - name: SetUp ArgoCd
         if: steps.cache.outputs.cache-hit != 'true'

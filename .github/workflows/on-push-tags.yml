@@ -52,10 +52,10 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
-          base="${{ github.event.base_ref }}"
+          base=${{ github.event.base_ref }}
 
           echo -------------------------------
-          echo "${base#refs/heads/}"
+          echo ${base#refs/heads/}
           echo -------------------------------
           echo -------------------------------
           echo ${{ github.ref }}

@@ -56,6 +56,7 @@ jobs:
 
           echo -------------------------------
           echo ${base#refs/heads/}
+          echo ${${{ github.event.base_ref }}#refs/heads/}
           echo -------------------------------
           echo -------------------------------
           echo ${{ github.ref }}

@@ -25,14 +25,6 @@ jobs:
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
           echo "==== Deploy to $ENVIRONMENT"
 
-      - name: Get Branch Name
-        run: |
-                 BRANCH_NAME=${{ github.event.base_ref }}
-          export BRANCH_NAME=${BRANCH_NAME#refs/heads/}
-
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-          echo "==== Source from $BRANCH_NAME"
-
       - id: cache
         name: Packages Cache
         uses: actions/cache@v3
@@ -78,18 +70,20 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
+          BRANCH_NAME=${{ github.event.base_ref }}
+
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git checkout -b ${{ env.BRANCH_NAME }}
+          git checkout -b $BRANCH_NAME
           git add .
 
           if [[ $(git status --porcelain | wc -l) == 1 ]]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin ${{ env.BRANCH_NAME }}:${{ env.BRANCH_NAME }}
+            git push origin $BRANCH_NAME:$BRANCH_NAME
           else
             echo "==== No changes to commit"
           fi
@@ -104,7 +98,7 @@ jobs:
           argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
             --path .k8s/${{ env.ENVIRONMENT }} \
-            --revision ${{ env.BRANCH_NAME }} \
+            --revision ${{ github.ref_name }} \
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ env.ENVIRONMENT }}-apps \
             --server ${{ secrets.ARGOCD_SERVER }} \

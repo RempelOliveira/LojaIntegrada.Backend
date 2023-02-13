@@ -60,8 +60,8 @@ jobs:
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
+          git pull
           git add .
-          git status
 
           if git status | grep -q "Changes to be committed"; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"

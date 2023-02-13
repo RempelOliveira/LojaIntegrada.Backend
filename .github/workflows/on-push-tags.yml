@@ -70,17 +70,20 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
+          BRANCH_NAME=${{ github.event.base_ref }}
+
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
+          git checkout -b $BRANCH_NAME
           git add .
 
-          if git status | grep -q "Changes to be committed"; then
+          if [[ $(git status --porcelain | wc -l) == 1 ]]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin HEAD:${{ github.event.base_ref }}
+            git push origin $BRANCH_NAME:$BRANCH_NAME
           else
             echo "==== No changes to commit"
           fi
@@ -105,4 +108,3 @@ jobs:
           argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web
-

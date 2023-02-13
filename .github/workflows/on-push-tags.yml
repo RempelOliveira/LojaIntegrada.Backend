@@ -76,12 +76,12 @@ jobs:
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git checkout -b ${{ github.event.base_ref }}
+          git checkout -b ${{ github.ref_name }}
           git add .
 
           if [[ $(git status --porcelain | wc -l) == 1 ]]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin ${{ github.event.base_ref }}:${{ github.event.base_ref }}
+            git push origin ${{ github.ref_name }}:${{ github.ref_name }}
           else
             echo "==== No changes to commit"
           fi

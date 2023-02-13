@@ -25,26 +25,9 @@ jobs:
           echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
           echo "==== Deploy to $ENVIRONMENT"
 
-      - id: cache
-        name: Packages Cache
-        uses: actions/cache@v3
-        with:
-          key: cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
-          path: |
-            /usr/local/bin/yq
-            /usr/local/bin/argocd
-          restore-keys: |
-            cache-packages-e720e97a-38d5-498d-be12-6d077d9f5d43
-
-      - name: SetUp Yq
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
-          chmod +x /usr/local/bin/yq
-
       - name: Check Deployment Image Version
         run: |
-          IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | yq -r .spec.template.spec.containers[0].image | sed "s/.*.:[a-z-]*.//")
+          IMAGE_VERSION=$(cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml | awk "/image:/ {print $2}" | sed "s/.*.cart-api.//")
 
           if [[ $IMAGE_VERSION == ${{ github.ref_name }} ]]; then
             echo "==== Ok"
@@ -53,13 +36,15 @@ jobs:
             exit
           fi
 
-      - name: SetUp ArgoCd
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-
-          rm argocd-linux-amd64
+      - id: cache
+        name: Packages Cache
+        uses: actions/cache@v3
+        with:
+          key: cache-packages-f3854a98-4987-7652-as87-54as87qw458as
+          path: |
+            /usr/local/bin/argocd
+          restore-keys: |
+            cache-packages-f3854a98-4987-7652-as87-54as87qw458as
 
       - name: SetUp Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -78,6 +63,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: rempeloliveira/public:cart-api.${{ github.ref_name }}
+
+      - name: SetUp ArgoCd
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+
+          rm argocd-linux-amd64
 
       - name: Sync ArgoCd Application
         run: |

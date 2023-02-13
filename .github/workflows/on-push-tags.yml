@@ -52,26 +52,21 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
-          base=${{ github.event.base_ref }}
+          base_ref=${{ github.event.base_ref }}
 
-          echo -------------------------------
-          echo ${base#refs/heads/}
-          echo ${${{ github.event.base_ref }}#refs/heads/}
-          echo -------------------------------
-          echo -------------------------------
-          echo ${{ github.ref }}
-          echo ${{ github.event.ref }}
-          echo -------------------------------
-          echo ${{ github.head_ref }}
-          echo ${{ github.event.head_ref }}
-          echo -------------------------------
-          echo -------------------------------
-          echo ${{ github.base_ref }}
-          echo ${{ github.event.base_ref }}
-          echo -------------------------------
-          echo ${{ github.ref_name }}
-          echo ${{ github.base.ref_name }}
-          echo -------------------------------
-          echo ${GITHUB_REF##*/}
-          echo ${GITHUB_BASE_REF##*/}
-          echo -------------------------------
+          yq -i '.spec.template.spec.containers[0].image |=
+            sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+
+          cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+
+          git config user.name RempelOliveira
+          git config user.email rempel.oliveira@gmail.com
+
+          git add .
+
+          if [[ $(git status --porcelain | wc -l) == 1 ]]; then
+            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+            git push origin HEAD:${base#refs/heads/}
+          else
+            echo "==== No changes to commit"
+          fi

@@ -63,3 +63,9 @@ jobs:
           echo ${{ github.base_ref }}
           echo ${{ github.event.base_ref }}
           echo -------------------------------
+          echo ${{ github.ref_name }}
+          echo ${{ github.base.ref_name }}
+          echo -------------------------------
+          echo ${GITHUB_REF##*/}
+          echo ${GITHUB_BASE_REF##*/}
+          echo -------------------------------

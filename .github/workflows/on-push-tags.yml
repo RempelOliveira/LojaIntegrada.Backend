@@ -56,3 +56,15 @@ jobs:
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           cat .k8s/${{ env.ENVIRONMENT }}/deployment.yml
+
+          git config user.name RempelOliveira
+          git config user.email rempel.oliveira@gmail.com
+
+          git add .
+
+          if git status | grep -q "Changes to be committed"; then
+            git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
+            git push origin HEAD:${{ github.event.base_ref }}
+          else
+            echo "==== No changes to commit"
+          fi

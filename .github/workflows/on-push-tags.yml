@@ -53,5 +53,5 @@ jobs:
       - name: Replace Deployment Image Version
         run: |
           echo -------------------------------
-          echo ${{ github.base_ref }}
+          echo ${{ github.head_ref || github.ref_name }}
           echo -------------------------------

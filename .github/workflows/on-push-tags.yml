@@ -70,41 +70,41 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
-          BRANCH_NAME=${{ github.event.base_ref }}
-
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml
 
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git checkout -b $BRANCH_NAME
+          git checkout -b ${{ github.event.base_ref }}
           git add .
 
           if [[ $(git status --porcelain | wc -l) == 1 ]]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin $BRANCH_NAME:$BRANCH_NAME
+            git push origin ${{ github.event.base_ref }}:${{ github.event.base_ref }}
           else
             echo "==== No changes to commit"
           fi
 
       - name: Sync ArgoCd Application
         run: |
+          ENVIRONMENT=${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }}
+
           argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USERNAME }} \
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
 
-          argocd app create cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
+          argocd app create cart-api$ENVIRONMENT \
             --repo https://github.com/RempelOliveira/LojaIntegrada.Backend.git \
             --path .k8s/${{ env.ENVIRONMENT }} \
-            --revision ${{ github.ref_name }} \
+            --revision ${{ github.event.base_ref }} \
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ env.ENVIRONMENT }}-apps \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web \
             --upsert
 
-          argocd app sync cart-api${{ env.ENVIRONMENT == 'staging' && '-staging' || '' }} \
+          argocd app sync cart-api$ENVIRONMENT \
             --server ${{ secrets.ARGOCD_SERVER }} \
             --grpc-web

@@ -52,7 +52,7 @@ jobs:
 
       - name: Replace Deployment Image Version
         run: |
-          BASE_REF = ${{ github.event.base_ref }}
+          BASE_REF=${{ github.event.base_ref }}
 
           yq -i '.spec.template.spec.containers[0].image |=
             sub("cart-api.*", "cart-api.${{ github.ref_name }}")' .k8s/${{ env.ENVIRONMENT }}/deployment.yml

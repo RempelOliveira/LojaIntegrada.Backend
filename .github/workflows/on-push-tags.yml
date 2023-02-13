@@ -54,4 +54,5 @@ jobs:
         run: |
           echo -------------------------------
           echo ${{ github.head_ref || github.ref_name }}
+          echo ${GITHUB_REF#refs/heads/}
           echo -------------------------------

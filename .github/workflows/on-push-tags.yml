@@ -87,7 +87,7 @@ jobs:
 
           if [[ $(git status --porcelain | wc -l) == 1 ]]; then
             git commit -m "Replaced Deployment Image Version to ${{ github.ref_name }}"
-            git push origin HEAD:${{ env.BRANCH_NAME }}
+            git push origin ${{ env.BRANCH_NAME }}
           else
             echo "==== No changes to commit"
           fi

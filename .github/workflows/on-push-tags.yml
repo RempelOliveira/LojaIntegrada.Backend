@@ -60,7 +60,6 @@ jobs:
           git config user.name RempelOliveira
           git config user.email rempel.oliveira@gmail.com
 
-          git pull origin HEAD:${{ github.event.base_ref }}
           git add .
 
           if git status | grep -q "Changes to be committed"; then
